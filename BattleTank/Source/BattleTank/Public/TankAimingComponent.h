@@ -7,10 +7,10 @@
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "TankAimingComponent.generated.h"
-//Forward Decleration
+//Forward Deceleration
 class UTankBarrel;
 class UTankTurret;
-//Hold barrel properties and elevate methos
+//Hold barrel properties and elevate methods
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANK_API UTankAimingComponent : public UActorComponent
 {
