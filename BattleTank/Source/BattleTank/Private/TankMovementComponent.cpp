@@ -4,7 +4,7 @@
 #include "TankTrack.h"
 void UTankMovementComponent::Initialize(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet)
 {
-	if (!LeftTrackToSet || !RightTrackToSet) return;
+	if (!ensure(LeftTrackToSet && RightTrackToSet)) return;
 	RightTrack = RightTrackToSet;
 	LeftTrack = LeftTrackToSet;
 }
@@ -21,12 +21,14 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
+	if (!ensure(RightTrack&&LeftTrack)) return;
 	RightTrack->SetTrottle(Throw);
 	LeftTrack->SetTrottle(Throw);
 }
 
 void UTankMovementComponent::IntendIntendTurnRight(float Throw)
 {
+	if (!ensure(RightTrack&&LeftTrack)) return;
 	RightTrack->SetTrottle(-Throw);
 	LeftTrack->SetTrottle(Throw);
 }
