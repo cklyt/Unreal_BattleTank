@@ -10,6 +10,16 @@
 //Forward Deceleration
 class UTankBarrel;
 class UTankTurret;
+
+//Enum for aimingstate
+UENUM()
+enum class EFiringStatus : uint8
+{
+	ReLoading,
+	Aiming,
+	Locked
+};
+
 //Hold barrel properties and elevate methods
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANK_API UTankAimingComponent : public UActorComponent
@@ -25,10 +35,14 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+	UPROPERTY(BlueprintReadOnly, Category = "State")
+		EFiringStatus FiringState = EFiringStatus::ReLoading;
 private:
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 	void MoveBarrelTowwards(FVector AimDirection);
+
+	
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
