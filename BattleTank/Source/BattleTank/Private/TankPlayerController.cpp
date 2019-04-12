@@ -19,11 +19,13 @@ void ATankPlayerController::BeginPlay()
 }
 void ATankPlayerController::AimTowardsCrosshair()
 {
+	if (!GetPawn()) return;
 	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (!ensure(AimingComponent)) { return; }
 
 	FVector HitLocation;
-	if (GetSightRayHitLocation(HitLocation))
+	bool bGotHitLocation = GetSightRayHitLocation(HitLocation);
+	if (bGotHitLocation)
 	{
 		AimingComponent->AimAt(HitLocation);
 		//UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *HitLocation.ToString());
