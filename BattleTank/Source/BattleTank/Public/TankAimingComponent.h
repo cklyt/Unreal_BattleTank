@@ -8,6 +8,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "TankAimingComponent.generated.h"
 //Forward Deceleration
+
+class AProjectile;
 class UTankBarrel;
 class UTankTurret;
 
@@ -17,6 +19,7 @@ enum class EFiringStatus : uint8
 {
 	ReLoading,
 	Aiming,
+	OutOfAmmo,
 	Locked
 };
 
@@ -36,6 +39,9 @@ public:
 		void Fire();
 	UFUNCTION(BlueprintCallable, Category = "SetUp")
 		void Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
+
+	UFUNCTION(BlueprintCallable, Category = "SetUp")
+		int GetRoundsLeft() const;
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 		float LaunchSpeed = 10000.;
@@ -49,12 +55,16 @@ private:
 	//pointers
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;	
+
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
-		UClass* ProjectileBP;
+	TSubclassOf<AProjectile> ProjectileBP;
 	
 	// Sets default values for this component's properties
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 		float ReloadTimeInSeconds = 3;
 	double LastFireTime = 0;
 	FVector AimDirection = FVector::ZeroVector;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+		int RoundsLeft = 5;
 };

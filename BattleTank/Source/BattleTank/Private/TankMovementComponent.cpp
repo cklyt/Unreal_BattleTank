@@ -24,6 +24,7 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 	if (!ensure(RightTrack&&LeftTrack)) return;
 	RightTrack->SetTrottle(Throw);
 	LeftTrack->SetTrottle(Throw);
+	//UE_LOG(LogTemp, Warning, TEXT("Tank Movement called"));
 }
 
 void UTankMovementComponent::IntendIntendTurnRight(float Throw)
